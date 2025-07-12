@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -24,8 +27,8 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  padding: 0;
+  padding-top: 3em;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -44,14 +47,15 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: opacity 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  opacity: 0.5;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+button:active {
+  background-color: #282424;
+  color: aqua;
 }
 
 @media (prefers-color-scheme: light) {

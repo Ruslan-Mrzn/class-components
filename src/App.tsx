@@ -1,35 +1,36 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.module.scss';
+import { Search } from './components/Search';
+import styles from './App.module.scss';
+import React from 'react';
 
-function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+interface AppState {
+  previousSearchValue: string;
+  searchResults: unknown[];
+  searchStatus: string;
 }
 
-export default App;
+export class App extends React.Component<object, AppState> {
+  constructor(props: object) {
+    super(props);
+    this.state = {
+      previousSearchValue: localStorage.getItem('previousSearchValue') || '',
+      searchResults: [],
+      searchStatus: '',
+    };
+  }
+  setSearchValue = (value: string): void => {
+    this.setState({ previousSearchValue: value });
+    localStorage.setItem('previousSearchValue', value);
+    console.log(value);
+  };
+  render() {
+    return (
+      <div className={styles.app}>
+        <Search
+          setSearchValue={this.setSearchValue}
+          previousSearchValue={this.state.previousSearchValue}
+        />
+      </div>
+    );
+  }
+}
