@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './Search.module.scss';
-import { fetchPokes } from '../../utils/fetchPokes';
+import { fetchPokes, Pokemon } from '../../utils/fetchPokes';
 
 interface SearchProps {
   previousSearchValue: string;
   setSearchValue: (value: string) => void;
-  setSearchResults: (result: unknown[]) => void;
-  setSearchError: (error: unknown) => void;
+  setSearchResults: (result: Pokemon[]) => void;
+  setSearchError: (error: { message: string }) => void;
 }
 
 interface SearchState {
@@ -27,16 +27,10 @@ export class Search extends React.Component<SearchProps, SearchState> {
   handleSearch = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     this.props.setSearchValue(this.state.searchValue);
-    let result;
-    try {
-      result = await fetchPokes(
-        `https://pokeapi.co/api/v2/pokemon/${this.state.searchValue}/?limit=5&offset=0`
-      );
-      this.props.setSearchResults(result);
-    } catch (err: unknown) {
-      this.props.setSearchError(err);
-      console.info(err);
-    }
+    const result = await fetchPokes(
+      `https://pokeapi.co/api/v2/pokemon/${this.state.searchValue}/?limit=5&offset=0`
+    );
+    this.props.setSearchResults(result);
   };
   render() {
     return (
