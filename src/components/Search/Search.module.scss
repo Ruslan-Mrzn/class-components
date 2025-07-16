@@ -1,0 +1,19 @@
+.search {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  // width: 25rem;
+  min-width: 18.75rem;
+}
+
+.input {
+  flex-grow: 1;
+  flex-shrink: 2;
+  padding: 0.5rem;
+  font: inherit;
+}
+
+.button {
+  background-color: aquamarine;
+  color: #242424;
+}
