@@ -1,6 +1,10 @@
 * {
   box-sizing: border-box;
 }
+html {
+  display: flex;
+  flex-direction: column;
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -14,6 +18,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 a {
@@ -26,6 +33,9 @@ a:hover {
 }
 
 body {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
   margin: 0;
   padding: 0;
   padding-top: 3em;

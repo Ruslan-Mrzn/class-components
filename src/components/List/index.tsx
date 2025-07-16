@@ -1,17 +1,17 @@
 import React from 'react';
 import styles from './List.module.scss';
-import { Pokemon } from '../../utils/fetchPokes';
+import { Pokemon } from '../../App';
 import { Card } from '../Card';
 
 interface ListProps {
   searchResults: Pokemon[];
-  searchError: { message: string };
+  searchError: string | null;
 }
 
 export class List extends React.Component<ListProps> {
   render() {
-    if (this.props.searchError.message !== '') {
-      return <p>{this.props.searchError.message}</p>;
+    if (this.props.searchError) {
+      return <p>{this.props.searchError}</p>;
     }
 
     return (

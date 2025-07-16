@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from './Search.module.scss';
-import { fetchPokes, Pokemon } from '../../utils/fetchPokes';
+import { Pokemon } from '../../App';
 
 interface SearchProps {
   previousSearchValue: string;
   setSearchValue: (value: string) => void;
   setSearchResults: (result: Pokemon[]) => void;
-  setSearchError: (error: { message: string }) => void;
+  fetchPokes: (url: string) => Promise<Pokemon>;
+  setSearchError: (error: string | null) => void;
 }
 
 interface SearchState {
@@ -22,15 +23,15 @@ export class Search extends React.Component<SearchProps, SearchState> {
   }
   handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ searchValue: event.target.value });
-    console.log(this.state.searchValue);
   };
   handleSearch = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    this.props.setSearchError(null);
     e.preventDefault();
     this.props.setSearchValue(this.state.searchValue);
-    const result = await fetchPokes(
+    const result = await this.props.fetchPokes(
       `https://pokeapi.co/api/v2/pokemon/${this.state.searchValue}/?limit=5&offset=0`
     );
-    this.props.setSearchResults(result);
+    this.props.setSearchResults([result]);
   };
   render() {
     return (
