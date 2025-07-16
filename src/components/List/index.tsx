@@ -11,7 +11,11 @@ interface ListProps {
 export class List extends React.Component<ListProps> {
   render() {
     if (this.props.searchError) {
-      return <p>{this.props.searchError}</p>;
+      return (
+        <p className={styles.errorText} data-testid="error">
+          {this.props.searchError}
+        </p>
+      );
     }
 
     return (
