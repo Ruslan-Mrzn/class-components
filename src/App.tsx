@@ -37,7 +37,10 @@ export class App extends React.Component<object, AppState> {
       response = await fetch(url);
     } catch (error) {
       this.setState({ isLoading: false });
-      throw new Error('Error fetching data' + error);
+      this.setSearchError(
+        `Error fetching data: ${error}. Please try reload the page.`
+      );
+      throw new Error('Error fetching data');
     }
     if (!response.ok || !response) {
       if (response.status === 400) {
