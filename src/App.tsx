@@ -65,8 +65,9 @@ export class App extends React.Component<object, AppState> {
   };
 
   setSearchValue = (value: string): void => {
-    localStorage.setItem('previousSearchValue', value);
-    this.setState({ previousSearchValue: value }, () => {
+    const trimmedValue = value.trim();
+    localStorage.setItem('previousSearchValue', trimmedValue);
+    this.setState({ previousSearchValue: trimmedValue }, () => {
       this.setState({ isLoading: true });
     });
   };

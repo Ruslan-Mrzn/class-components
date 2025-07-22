@@ -18,7 +18,7 @@ export class Search extends React.Component<SearchProps, SearchState> {
   constructor(props: SearchProps) {
     super(props);
     this.state = {
-      searchValue: '',
+      searchValue: this.props.previousSearchValue,
     };
   }
   handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -28,10 +28,12 @@ export class Search extends React.Component<SearchProps, SearchState> {
     this.props.setSearchError(null);
     e.preventDefault();
     this.props.setSearchValue(this.state.searchValue);
-    const result = await this.props.fetchPokes(
-      `https://pokeapi.co/api/v2/pokemon/${this.state.searchValue}/?limit=5&offset=0`
-    );
-    this.props.setSearchResults([result]);
+    this.setState({ searchValue: this.state.searchValue.trim() }, async () => {
+      const result = await this.props.fetchPokes(
+        `https://pokeapi.co/api/v2/pokemon/${this.state.searchValue}/?limit=5&offset=0`
+      );
+      this.props.setSearchResults([result]);
+    });
   };
   render() {
     return (
@@ -40,7 +42,8 @@ export class Search extends React.Component<SearchProps, SearchState> {
           type="text"
           className={styles.input}
           placeholder="Type poke name"
-          defaultValue={this.props.previousSearchValue}
+          // defaultValue={this.props.previousSearchValue}
+          value={this.state.searchValue}
           onChange={this.handleChange}
           required={true}
         />
